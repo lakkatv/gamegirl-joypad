@@ -140,31 +140,31 @@ int main() {
 
     // Write to udev
     if (up_button != up_button_old) {
-      set_button_event(fd, BTN_DPAD_UP, start_button != 0);
+      set_button_event(fd, BTN_DPAD_UP, up_button != 0);
     }
 
     if (down_button != down_button_old) {
-      set_button_event(fd, BTN_DPAD_DOWN, left_button != 0);
+      set_button_event(fd, BTN_DPAD_DOWN, down_button != 0);
     }
 
     if (left_button != left_button_old) {
-      set_button_event(fd, BTN_DPAD_LEFT, right_button != 0);
+      set_button_event(fd, BTN_DPAD_LEFT, left_button != 0);
     }
 
     if (right_button != right_button_old) {
-      set_button_event(fd, BTN_DPAD_RIGHT, a_button != 0);
+      set_button_event(fd, BTN_DPAD_RIGHT, right_button != 0);
     }
 
     if (x_button != x_button_old) {
-      set_button_event(fd, BTN_NORTH, a_button != 0);
+      set_button_event(fd, BTN_NORTH, x_button != 0);
     }
 
     if (b_button != b_button_old) {
-      set_button_event(fd, BTN_SOUTH, a_button != 0);
+      set_button_event(fd, BTN_SOUTH, b_button != 0);
     }
 
     if (y_button != y_button_old) {
-      set_button_event(fd, BTN_WEST, a_button != 0);
+      set_button_event(fd, BTN_WEST, y_button != 0);
     }
 
     if (a_button != a_button_old) {
