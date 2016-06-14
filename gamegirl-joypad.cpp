@@ -87,6 +87,10 @@ int main() {
   set_key_bit(fd, BTN_SOUTH);
   set_key_bit(fd, BTN_WEST);
   set_key_bit(fd, BTN_EAST);
+  set_key_bit(fd, BTN_START);
+  set_key_bit(fd, BTN_SELECT);
+  set_key_bit(fd, BTN_TL);
+  set_key_bit(fd, BTN_TR);
 
   ioctl(fd, UI_SET_EVBIT, EV_ABS);
   ioctl(fd, UI_SET_ABSBIT, ABS_X);
@@ -117,6 +121,10 @@ int main() {
   int b_button, b_button_old           = 0;
   int y_button, y_button_old           = 0;
   int a_button, a_button_old           = 0;
+  int start_button, start_button_old   = 0;
+  int selec_button, selec_button_old   = 0;
+  int l1_button, l1_button_old         = 0;
+  int r1_button, r1_button_old         = 0;
 
   while (1) {
     // Read GPIO
@@ -128,15 +136,23 @@ int main() {
     b_button_old      = b_button;
     y_button_old      = y_button;
     a_button_old      = a_button;
+    start_button_old  = start_button;
+    selec_button_old  = selec_button;
+    l1_button_old     = l1_button;
+    r1_button_old     = r1_button;
 
     up_button    = pinUpRead(_button_pin1, _button_pin2); // S1
-    down_button  = pinUpRead(_button_pin1, _button_pin4); // S2
-    left_button  = pinUpRead(_button_pin1, _button_pin3); // S3
+    down_button  = pinUpRead(_button_pin1, _button_pin3); // S2
+    left_button  = pinUpRead(_button_pin1, _button_pin4); // S3
     right_button = pinUpRead(_button_pin2, _button_pin1); // S4
-    x_button     = pinUpRead(_button_pin2, _button_pin4); // S5
-    b_button     = pinUpRead(_button_pin2, _button_pin3); // S6
-    y_button     = pinUpRead(_button_pin4, _button_pin1); // S7
-    a_button     = pinUpRead(_button_pin4, _button_pin2); // S8
+    x_button     = pinUpRead(_button_pin2, _button_pin3); // S5
+    b_button     = pinUpRead(_button_pin2, _button_pin4); // S6
+    y_button     = pinUpRead(_button_pin3, _button_pin1); // S7
+    a_button     = pinUpRead(_button_pin3, _button_pin2); // S8
+    start_button = pinUpRead(_button_pin3, _button_pin4); // S9
+    selec_button = pinUpRead(_button_pin4, _button_pin1); // S10
+    l1_button    = pinUpRead(_button_pin4, _button_pin2); // S11
+    r1_button    = pinUpRead(_button_pin4, _button_pin3); // S12
 
     // Write to udev
     if (up_button != up_button_old) {
@@ -169,6 +185,22 @@ int main() {
 
     if (a_button != a_button_old) {
       set_button_event(fd, BTN_EAST, a_button != 0);
+    }
+
+    if (start_button != start_button_old) {
+      set_button_event(fd, BTN_START, start_button != 0);
+    }
+
+    if (selec_button != selec_button_old) {
+      set_button_event(fd, BTN_SELECT, selec_button != 0);
+    }
+
+    if (l1_button != l1_button_old) {
+      set_button_event(fd, BTN_TL, l1_button != 0);
+    }
+
+    if (r1_button != r1_button_old) {
+      set_button_event(fd, BTN_TR, r1_button != 0);
     }
 
     memset(&ev, 0, sizeof(struct input_event));
